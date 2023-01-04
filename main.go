@@ -1,24 +1,26 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+	"time"
+)
 
-type UseRefReturnType[U any] struct {
-	current U
-}
+var wg sync.WaitGroup
 
-func useRef[T any](value T) UseRefReturnType[T] {
-
-	ref := UseRefReturnType[T]{
-		current: value,
+func greet(msg string) {
+	for i := 0; i < 5; i++ {
+		fmt.Println(msg)
+		time.Sleep(time.Millisecond * 100)
 	}
-
-	return ref
+	wg.Done()
 }
 
 func main() {
-	boolRef := useRef(false)
-	stringRef := useRef("Hello")
+	wg.Add(2)
+	go greet("Hi")
+	go greet("Hello")
 
-	fmt.Println(boolRef.current)
-	fmt.Println(stringRef.current)
+	fmt.Println("Finish!")
+	wg.Wait()
 }
