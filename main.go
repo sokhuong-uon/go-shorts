@@ -2,23 +2,14 @@ package main
 
 import "fmt"
 
-type UseRefReturnType[U any] struct {
-	current U
-}
-
-func useRef[T any](value T) UseRefReturnType[T] {
-
-	ref := UseRefReturnType[T]{
-		current: value,
-	}
-
-	return ref
+func genericFunc[T any](value T) T {
+	return value
 }
 
 func main() {
-	boolRef := useRef(false)
-	stringRef := useRef("Hello")
+	stringValue := genericFunc("Hello") // return type is string
+	intValue := genericFunc(24)         // return type is int
 
-	fmt.Println(boolRef.current)
-	fmt.Println(stringRef.current)
+	fmt.Println(stringValue)
+	fmt.Println(intValue)
 }
