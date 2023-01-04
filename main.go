@@ -2,23 +2,24 @@ package main
 
 import "fmt"
 
-type UseRefReturnType[U any] struct {
-	current U
-}
+func sum[T int | float64](slice []T) T {
+	var sum T
+	sum = 0
 
-func useRef[T any](value T) UseRefReturnType[T] {
-
-	ref := UseRefReturnType[T]{
-		current: value,
+	for _, v := range slice {
+		sum += v
 	}
 
-	return ref
+	return sum
 }
 
 func main() {
-	boolRef := useRef(false)
-	stringRef := useRef("Hello")
+	intSlice := []int{3, 6, 1, 8}
+	floatSlice := []float64{3.3, 6.1, 8.5}
 
-	fmt.Println(boolRef.current)
-	fmt.Println(stringRef.current)
+	intSum := sum(intSlice)
+	floatSum := sum(floatSlice)
+
+	fmt.Println(intSum)
+	fmt.Println(floatSum)
 }
