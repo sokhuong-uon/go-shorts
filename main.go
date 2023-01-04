@@ -1,24 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
-type UseRefReturnType[U any] struct {
-	current U
-}
-
-func useRef[T any](value T) UseRefReturnType[T] {
-
-	ref := UseRefReturnType[T]{
-		current: value,
+func greet(msg string) {
+	for i := 0; i < 5; i++ {
+		fmt.Println(msg)
+		time.Sleep(time.Millisecond * 100)
 	}
-
-	return ref
 }
 
 func main() {
-	boolRef := useRef(false)
-	stringRef := useRef("Hello")
-
-	fmt.Println(boolRef.current)
-	fmt.Println(stringRef.current)
+	go greet("Hi")
+	greet("Hello")
 }
