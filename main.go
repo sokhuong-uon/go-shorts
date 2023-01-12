@@ -2,25 +2,24 @@ package main
 
 import (
 	"fmt"
-	"sync"
-	"time"
 )
 
-var wg sync.WaitGroup
-
-func greet(msg string) {
-	for i := 0; i < 5; i++ {
-		fmt.Println(msg)
-		time.Sleep(time.Millisecond * 100)
-	}
-	wg.Done()
-}
-
 func main() {
-	wg.Add(2)
-	go greet("Hi")
-	go greet("Hello")
+	fmt.Println("range:")
+	arr := [6]int{2, 4, 6, 1, 8, 6}
+	for _, value := range arr {
+		fmt.Println(value)
+	}
 
-	fmt.Println("Finish!")
-	wg.Wait()
+	fmt.Println("while")
+	a := 0
+	for a < 10 {
+		fmt.Println(a)
+		a += 2
+	}
+
+	fmt.Println("for")
+	for b := 0; b < 10; b++ {
+		fmt.Println(b)
+	}
 }
